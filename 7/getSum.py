@@ -1,4 +1,8 @@
 # coding=utf-8
+"""
+给你一个数组arr，和一个整数aim。如果可以任意选择arr中的
+数字，能不能累加得到aim，返回true或者false
+"""
 def get_sum_recursive(array, aim):
     if array:
         return process(array, 0, 0, aim)

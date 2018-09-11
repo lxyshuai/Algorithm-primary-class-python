@@ -1,4 +1,9 @@
 # coding=utf-8
+"""
+给你一个二维数组，二维数组中的每个数都是正数，要求从左上
+角走到右下角，每一步只能向右或者向下。沿途经过的数字要累
+加起来。返回最小的路径和
+"""
 def get_min_path_recursive(matrix):
     if matrix:
         return process_with_cache(matrix, 0, 0)

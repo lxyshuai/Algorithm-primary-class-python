@@ -1,3 +1,7 @@
+# coding=utf-8
+"""
+求数组中最小的数
+"""
 def getMin(array, left, right):
     if left == right:
         return array[left]
