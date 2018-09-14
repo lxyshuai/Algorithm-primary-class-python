@@ -2,16 +2,16 @@
 """
 求数组中最小的数
 """
-def getMin(array, left, right):
+def get_min(array, left, right):
     if left == right:
         return array[left]
 
     middle = left + (right - left) / 2
-    leftMin = getMin(array, left, middle)
-    rightMin = getMin(array, middle + 1, right)
+    leftMin = get_min(array, left, middle)
+    rightMin = get_min(array, middle + 1, right)
     return min(leftMin, rightMin)
 
 
 if __name__ == '__main__':
     array = [1, 2, 3, 4, 5]
-    print getMin(array, 0, len(array) - 1)
+    print get_min(array, 0, len(array) - 1)
