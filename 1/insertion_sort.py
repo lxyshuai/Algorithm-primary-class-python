@@ -1,15 +1,11 @@
 # coding=utf-8
 
 def insertion_sort(array):
+    # type: (list[int]) -> None
     """
     插入排序
     时间复杂度:O(N^2)
     额外空间复杂度:O(1)
-    Args:
-        array:
-
-    Returns:
-
     """
     for i in range(1, len(array)):
         for j in range(i, 0, -1):
@@ -17,6 +13,7 @@ def insertion_sort(array):
                 array[j], array[j - 1] = array[j - 1], array[j]
             else:
                 break
+
 
 if __name__ == '__main__':
     alist = [54, 26, 93, 77, 44, 31, 44, 55, 20]
