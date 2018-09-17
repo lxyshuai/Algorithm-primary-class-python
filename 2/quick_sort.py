@@ -11,10 +11,7 @@ def quick_sort_inplace(array, left, right):
     if left < right:
         less, greater = partition(array, left, right)
         quick_sort_inplace(array, left, less)
-        quick_sort_inplace(array, greater + 1, right)
-
-
-v
+        quick_sort_inplace(array, greater, right)
 
 
 def partition(array, left, right):
@@ -42,17 +39,21 @@ def partition(array, left, right):
     """
     less = left - 1
     greater = right
+    base = array[right]
     while left != greater:
-        if array[left] > array[right]:
+        if array[left] > base:
             greater -= 1
-            array[greater], array[left] = array[left], array[greater]
-        elif array[left] < array[right]:
+            array[left], array[greater] = array[greater], array[left]
+        elif array[left] < base:
             less += 1
             array[less], array[left] = array[left], array[less]
             left += 1
-        elif array[left] == array[right]:
+        else:
             left += 1
-    return
+
+    array[greater], array[right] = array[right], array[greater]
+    greater += 1
+    return less, greater
 
 
 def quick_sort_simple(array):
@@ -79,6 +80,7 @@ def quick_sort_simple(array):
 
 
 if __name__ == '__main__':
-    array = [3, 2, 4, 5, 1]
-    print quick_sort_simple(array)
+    array = [3, 2, 4, 4, 4, 4, 5, 1]
+    quick_sort_inplace_extrance(array)
     print array
+    print quick_sort_simple(array)
