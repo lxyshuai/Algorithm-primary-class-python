@@ -44,7 +44,7 @@ def is_palindrome(head):
 
     # 从头和从尾往中点遍历
     end = pointed_to_node
-    while head.next != None:
+    while head != None and end != None:
         if head.value != end.value:
             return False
         head = head.next
