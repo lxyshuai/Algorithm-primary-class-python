@@ -4,6 +4,8 @@
 【题目】
 给定两个有序链表的头指针head1和head2，打印两个链表的公共部分。
 """
+
+
 class Node(object):
     def __init__(self, value):
         self.value = value
