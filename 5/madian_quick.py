@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import division
+
 """
 随时找到数据流的中位数
 【题目】
@@ -16,6 +17,32 @@ O(1)。
 import Queue
 
 
+class max_heap_item(object):
+    def __init__(self, value):
+        self.value = value
+
+    def __cmp__(self, other):
+        if self.value > other.value:
+            return -1
+        elif self.value < other.value:
+            return 1
+        else:
+            return 0
+
+
+class min_heap_item(object):
+    def __init__(self, value):
+        self.value = value
+
+    def __cmp__(self, other):
+        if self.value < other.value:
+            return -1
+        elif self.value > other.value:
+            return 1
+        else:
+            return 0
+
+
 class MedianHolder(object):
     def __init__(self):
         self.max_heap = Queue.PriorityQueue()
@@ -23,9 +50,9 @@ class MedianHolder(object):
 
     def modify_two_heaps_size(self):
         if self.max_heap.qsize() == self.min_heap.qsize() + 2:
-            self.min_heap.put(self.max_heap.get())
+            self.min_heap.put(min_heap_item(self.max_heap.get().value))
         elif self.min_heap.qsize() == self.max_heap.qsize() + 2:
-            self.max_heap.put(self.min_heap.get())
+            self.max_heap.put(max_heap_item(self.min_heap.get().value))
 
     def add_number(self, number):
         """
@@ -36,12 +63,12 @@ class MedianHolder(object):
         @rtype:
         """
         if self.max_heap.qsize() == 0:
-            self.max_heap.put(number)
+            self.max_heap.put(max_heap_item(number))
         else:
-            if number > self.max_heap.queue[0]:
-                self.min_heap.put(number)
+            if number > self.max_heap.queue[0].value:
+                self.min_heap.put(min_heap_item(number))
             else:
-                self.max_heap.put(number)
+                self.max_heap.put(max_heap_item(number))
         self.modify_two_heaps_size()
 
     def get_median(self):
@@ -52,15 +79,15 @@ class MedianHolder(object):
         if max_heap_size + min_heap_size == 0:
             return None
         if (max_heap_size + min_heap_size) % 2 == 0:
-            return (max_heap_root + min_heap_root) / 2
+            return (max_heap_root.value + min_heap_root.value) / 2
         else:
-            return max_heap_root if max_heap_size > min_heap_size else min_heap_root
+            return max_heap_root.value if max_heap_size > min_heap_size else min_heap_root.value
 
 
 if __name__ == '__main__':
     md = MedianHolder()
     md.add_number(1)
     md.add_number(2)
-    md.add_number(3)
+    md.add_number(2)
     md.add_number(4)
     print md.get_median()
