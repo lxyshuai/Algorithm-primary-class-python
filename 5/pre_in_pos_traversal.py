@@ -23,7 +23,7 @@ def pre_order_traversal_recursive(root):
     @rtype:
     """
     if not root:
-        return
+        return None
     print root.value
     pre_order_traversal_recursive(root.left)
     pre_order_traversal_recursive(root.right)
@@ -42,12 +42,12 @@ def pre_order_traversal_un_recursive(root):
     stack = list()
     stack.append(root)
     while stack:
-        middle = stack.pop()
-        print middle.value
-        if middle.right:
-            stack.append(middle.right)
-        if middle.left:
-            stack.append(middle.left)
+        current_node = stack.pop()
+        print current_node.value
+        if current_node.right:
+            stack.append(current_node.right)
+        if current_node.left:
+            stack.append(current_node.left)
 
 
 def in_order_traversal_recursive(root):
@@ -76,14 +76,15 @@ def in_order_traversal_un_recursive(root):
     if not root:
         return
     stack = list()
-    while stack or root:
-        if root:
-            stack.append(root)
-            root = root.left
+    current_node = root
+    while stack or current_node:
+        if current_node:
+            stack.append(current_node)
+            current_node = current_node.left
         else:
-            root = stack.pop()
-            print root.value
-            root = root.right
+            current_node = stack.pop()
+            print current_node.value
+            current_node = current_node.right
 
 
 def post_order_traversal_recursive(root):
@@ -112,17 +113,18 @@ def post_order_traversal_un_recursive1(root):
     if not root:
         return
     stack = list()
-    help = list()
-    stack.append(root)
+    result = list()
+    current_node = root
+    stack.append(current_node)
     while stack:
-        middle = stack.pop()
-        help.append(middle)
-        if middle.left:
-            stack.append(middle.left)
-        if middle.right:
-            stack.append(middle.right)
-    while help:
-        print help.pop().value
+        current_node = stack.pop()
+        result.append(current_node)
+        if current_node.left:
+            stack.append(current_node.left)
+        if current_node.right:
+            stack.append(current_node.right)
+    while result:
+        print result.pop().value
 
 
 def post_order_traversal_un_recursive2(root):
@@ -134,20 +136,20 @@ def post_order_traversal_un_recursive2(root):
     @rtype:
     """
     if not root:
-        return
+        return None
     stack = list()
-    stack.append(root)
-
+    last_node = root
+    stack.append(last_node)
     while stack:
         current_node = stack[-1]
-        # 判断该节点左子节点已入栈并出栈
-        if current_node.left != None and root != current_node.left and root != current_node.right:
+        # 弹出一个节点前要保证其左右节点都已弹出过
+        if current_node.left != None and last_node != current_node.left and last_node != current_node.right:
             stack.append(current_node.left)
-        elif current_node.right != None and root != current_node.right:
+        elif current_node.right != None and last_node != current_node.right:
             stack.append(current_node.right)
         else:
-            print stack.pop().value
-            root = current_node
+            last_node = stack.pop()
+            print last_node.value
 
 
 if __name__ == '__main__':
@@ -170,8 +172,8 @@ if __name__ == '__main__':
     in_order_traversal_recursive(head)
     print "pos-order: "
     post_order_traversal_recursive(head)
-    #
-    # print "============unrecursive============="
+
+    print "============unrecursive============="
     print "pre-order: "
     pre_order_traversal_un_recursive(head)
     print "in-order: "
