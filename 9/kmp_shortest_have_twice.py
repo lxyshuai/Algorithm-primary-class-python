@@ -13,6 +13,8 @@ str1 = 123123，str2 = 123123123 时，包含两个str1，且不
 str1 = 111，str2 = 1111 时，包含两个str1，且不以相同位
 置开头，且str2最短。
 """
+
+
 def answer(string):
     if not string:
         return ""
