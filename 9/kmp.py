@@ -2,27 +2,29 @@
 """
 kmp
 """
-def get_next_array(word):
-    char_array = list(word)
-    if len(char_array) == 1:
-        return [-1]
-    next = list()
-    next.append(-1)
-    next.append(0)
+
+
+def get_next_array(match):
+    char_array = list(match)
+    next_array = list()
+    next_array.append(-1)
+    next_array.append(0)
     position = 2
-    # 用于比对的index
-    current_index = 0
     while position < len(char_array):
-        if char_array[position - 1] == char_array[current_index]:
-            current_index += 1
-            next.append(current_index)
-            position += 1
-        elif current_index > 0:
-            current_index = next[current_index]
+        compare_index = next_array[position - 1]
+        next_number = next_array[position - 1]
+        while compare_index != -1:
+            if match[position - 1] == match[compare_index]:
+                next_array.append(next_number + 1)
+                position += 1
+                break
+            else:
+                compare_index = next_array[compare_index]
+                next_number = next_array[compare_index]
         else:
-            next.append(0)
+            next_array.append(0)
             position += 1
-    return next
+    return next_array
 
 
 def get_index(word, match):
@@ -41,7 +43,7 @@ def get_index(word, match):
         if word_char_array[word_index] == match_char_array[match_index]:
             word_index += 1
             match_index += 1
-        elif next_array[match_index] == -1:
+        elif match_index == -1:
             word_index += 1
         else:
             match_index = next_array[match_index]
@@ -50,4 +52,5 @@ def get_index(word, match):
 
 
 if __name__ == '__main__':
-    print get_index("abcabcababaccc","ababa")
+    print get_next_array("abcdabd")
+    print get_index("abcabcababaccc", "ababa")
