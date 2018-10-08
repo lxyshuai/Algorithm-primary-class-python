@@ -43,7 +43,7 @@ def get_index(word, match):
         if word_char_array[word_index] == match_char_array[match_index]:
             word_index += 1
             match_index += 1
-        elif match_index == -1:
+        elif next_array[match_index] == -1:
             word_index += 1
         else:
             match_index = next_array[match_index]
